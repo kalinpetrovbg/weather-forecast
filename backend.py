@@ -1,7 +1,11 @@
 import requests
 from datetime import datetime
+from dotenv import load_dotenv
+import os
 
-api_key = "57858e29f5c6441a58ad0170310986a3"
+
+load_dotenv()
+api_key = os.getenv("API_KEY")
 
 
 def normalize_temp(temperature):
@@ -15,7 +19,9 @@ def get_next_n_records(data, n):
 
 
 def get_data(location, days):
-    url = f"https://api.openweathermap.org/data/2.5/forecast?q={location}&appid={api_key}"
+    url = (
+        f"https://api.openweathermap.org/data/2.5/forecast?q={location}&appid={api_key}"
+    )
     response = requests.get(url)
     data = response.json()
     data_list = data["list"]
@@ -32,7 +38,7 @@ def get_data(location, days):
             "temperature": normalize_temp(record["main"]["temp"]),
             "feels_like": normalize_temp(record["main"]["feels_like"]),
             "humidity": record["main"]["humidity"],
-            "image": f"images/{record['weather'][0]['main'].lower()}.png"
+            "image": f"images/{record['weather'][0]['main'].lower()}.png",
         }
 
         if formatted_date not in new_data:

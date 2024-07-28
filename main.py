@@ -4,8 +4,9 @@ from backend import get_data
 
 st.title("Weather Forecast App")
 location = st.text_input("City:")
-days = st.slider("Forecast Days:", min_value=1, max_value=5,
-                 help="Select how many days")
+days = st.slider(
+    "Forecast Days:", min_value=1, max_value=5, help="Select how many days"
+)
 st.subheader(f"Forecast for the next {days} days in {location}")
 
 if location:
@@ -28,9 +29,9 @@ if location:
             for day in daily_stats:
                 col1, col2, col3, col4, col5 = st.columns(5)
                 with col1:
-                    st.write(day['time'])
+                    st.write(day["time"])
                 with col2:
-                    st.image(day['image'], width=50)
+                    st.image(day["image"], width=50)
                 with col3:
                     st.write(f"{day['temperature']}°C")
                 with col4:
